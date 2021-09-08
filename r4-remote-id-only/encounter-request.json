@@ -1,0 +1,11 @@
+{
+  "resourceType": "Encounter",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "VR"
+  },
+  "status": "in-progress",
+  "subject": {
+    "reference": "Patient/{{patientId}}"
+  }
+}

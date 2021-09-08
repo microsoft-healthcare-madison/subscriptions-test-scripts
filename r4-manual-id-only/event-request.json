@@ -1,0 +1,53 @@
+{
+  "resourceType": "Bundle",
+  "type": "history",
+  "timestamp": "{{$datetime iso8601}}",
+  "entry": [{
+    "fullUrl": "{{fhirEndpointUrl}}/Subscription/{{subscriptionId}}/$status",
+    "resource": {
+      "resourceType": "SubscriptionStatus",
+      "status": "active",
+      "type": "event-notification",
+      "eventsSinceSubscriptionStart": "{{eventNumber}}",
+      "eventsInNotification": 1,
+      "notificationEvent": [{
+        "eventNumber": "{{eventNumber}}",
+        "focus": {
+          "reference": "{{fhirEndpointUrl}}/Encounter/{{encounterId}}"
+        },
+        "additionalContext": [{
+          "reference": "{{fhirEndpointUrl}}/Patient/{{patientId}}"
+        }]
+      }],
+      "subscription": {
+        "reference": "{{fhirEndpointUrl}}/Subscription/{{subscriptionId}}"
+      },
+      "topic": "{{topicCanonical}}"
+    },
+    "request": {
+      "method": "GET",
+      "url": "{{fhirEndpointUrl}}/Subscription/{{subscriptionId}}/$status"
+    },
+    "response": {
+      "status": "200"
+    }
+  }, {
+    "fullUrl": "{{fhirEndpointUrl}}/Encounter/{{encounterId}}",
+    "request": {
+      "method": "POST",
+      "url": "{{fhirEndpointUrl}}/Encounter/{{encounterId}}"
+    },
+    "response": {
+      "status": "204"
+    }
+  }, {
+    "fullUrl": "{{fhirEndpointUrl}}/Patient/{{patientId}}",
+    "request": {
+      "method": "GET",
+      "url": "{{fhirEndpointUrl}}/Patient/{{patientId}}"
+    },
+    "response": {
+      "status": "200"
+    }
+  }]
+}

@@ -1,0 +1,37 @@
+{
+  "resourceType": "Subscription",
+  "reason": "Client Testing",
+  "channel": {
+    "endpoint": "{{notificationUrl}}",
+    "payload": "application/fhir+json",
+    "_payload": {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-payload-content",
+          "valueCode": "id-only"
+        }
+      ]
+    },
+    "type": "rest-hook",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-heartbeat-period",
+        "valueUnsignedInt": 60
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-max-count",
+        "valuePositiveInt": 10
+      }
+    ]
+  },
+  "status": "requested",
+  "criteria": "{{topicCanonical}}",
+  "_criteria": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/uv/subscriptions-backport/StructureDefinition/backport-filter-criteria",
+        "valueString": "{{filter}}"
+      }
+    ]
+  }
+}

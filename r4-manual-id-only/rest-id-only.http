@@ -1,0 +1,26 @@
+// Configuration
+//@fhirEndpointUrl = http://localhost:56340/r4
+@fhirEndpointUrl = https://server.subscriptions.argo.run/r4
+@topicCanonical = http://argonautproject.org/encounters-ig/SubscriptionTopic/encounter-start
+@notificationUrl = https://fhir-subscriptions-local-tunnel-test.loca.lt/notification
+@subscriptionId = 452a0ef3-c1ba-48f6-9f03-cc3c1576f67a
+
+### POST Handshake
+# @name postHandshake
+POST {{notificationUrl}}
+Accept: application/fhir+json
+Content-Type: application/fhir+json
+
+<@ ./handshake-request.json
+
+### POST Event
+# @name postEvent
+@patientId = PAT1
+@eventNumber = 2
+@encounterId = 2
+POST {{notificationUrl}}
+Accept: application/fhir+json
+Content-Type: application/fhir+json
+
+<@ ./event-request.json
+

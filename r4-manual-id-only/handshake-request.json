@@ -1,0 +1,26 @@
+{
+  "resourceType": "Bundle",
+  "type": "history",
+  "timestamp": "{{$datetime iso8601}}",
+  "entry": [{
+    "fullUrl": "{{fhirEndpointUrl}}/Subscription/{{subscriptionId}}/$status",
+    "resource": {
+      "resourceType": "SubscriptionStatus",
+      "status": "requested",
+      "type": "handshake",
+      "eventsSinceSubscriptionStart": "0",
+      "eventsInNotification": 0,
+      "subscription": {
+        "reference": "{{fhirEndpointUrl}}/Subscription/{{subscriptionId}}"
+      },
+      "topic": "{{topicCanonical}}"
+    },
+    "request": {
+      "method": "GET",
+      "url": "{{fhirEndpointUrl}}/Subscription/{{subscriptionId}}/$status"
+    },
+    "response": {
+      "status": "200"
+    }
+  }]
+}

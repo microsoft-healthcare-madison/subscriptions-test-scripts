@@ -1,0 +1,59 @@
+// Configuration
+//@fhirEndpointUrl = http://localhost:56340/r4
+@fhirEndpointUrl = https://server.subscriptions.argo.run/r4
+@topicCanonical = http://argonautproject.org/encounters-ig/SubscriptionTopic/encounter-start
+@notificationUrl = https://fhir-subscriptions-local-tunnel-test.loca.lt/notification
+@patientId = PAT1
+@filter = Encounter?patient=Patient/{{patientId}}
+
+### Get Metadata
+GET {{fhirEndpointUrl}}/metadata HTTP/1.1
+Accept: application/fhir+json
+
+### Get Bundle of SubscriptionTopic resources
+# @name listSubscriptiontopic
+GET {{fhirEndpointUrl}}/SubscriptionTopic HTTP/1.1
+Accept: application/fhir+json
+
+### Get the list of patients
+# @name listPatient
+GET {{fhirEndpointUrl}}/Patient
+Accept: application/fhir+json
+
+### Create Subscription
+# @name createSubscription
+POST {{fhirEndpointUrl}}/Subscription
+Accept: application/fhir+json
+Content-Type: application/fhir+json
+
+<@ ./subscription-request.json
+
+### Get Subscription Status
+# @name getSubscriptionStatus
+@subscriptionId = {{createSubscription.response.body.id}}
+GET {{fhirEndpointUrl}}/Subscription/{{subscriptionId}}/$status
+Accept: application/fhir+json
+
+### Get Subscription Events
+# @name getSubscriptionEvents
+@subscriptionId = {{createSubscription.response.body.id}}
+@contentHint = full-resource
+GET {{fhirEndpointUrl}}/Subscription/{{subscriptionId}}/$events
+  ?content={{contentHint}}
+Accept: application/fhir+json
+
+
+### Delete Subscription
+# @name deleteSubscription
+@subscriptionId = {{createSubscription.response.body.id}}
+DELETE {{fhirEndpointUrl}}/Subscription/{{subscriptionId}}
+Accept: application/fhir+json
+
+### Send Encounter
+# @name sendEncounter
+POST {{fhirEndpointUrl}}/Encounter
+Accept: application/fhir+json
+Content-Type: application/fhir+json
+
+<@ ./encounter-request.json
+
