@@ -12,7 +12,7 @@ Accept: application/fhir+json
 
 ### Get Bundle of SubscriptionTopic resources
 # @name listSubscriptiontopic
-GET {{fhirEndpointUrl}}/SubscriptionTopic HTTP/1.1
+GET {{fhirEndpointUrl}}/SubscriptionTopic
 Accept: application/fhir+json
 
 ### Get the list of patients
